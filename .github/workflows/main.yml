@@ -1,0 +1,30 @@
+# https://github.com/wro4j/wro4j,185ab607f1d649ca38b4a772831ee754cd4649fb,
+# wro4j-extensions,
+# ro.isdc.wro.extensions.processor.TestRubySassCssProcessor.shouldBeThreadSafe,ID,,,
+name: Test:TestRubySassCssProcessor.shouldBeThreadSafe
+run-name: Known Flaky test
+on: [push]
+jobs:
+  Test_Without_Nondex_Shuffling:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+      - name: Test
+        run: mvn -pl wro4j-extensions test -Dtest=ro.isdc.wro.extensions.processor.TestRubySassCssProcessor#shouldBeThreadSafe
+        
+  Test_With_Nondex_Shuffling:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+      - name: Test
+        run: mvn -X -pl wro4j-extensions edu.illinois:nondex-maven-plugin:1.1.2:nondex -Dtest=ro.isdc.wro.extensions.processor.TestRubySassCssProcessor#shouldBeThreadSafe
